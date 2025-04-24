@@ -1,40 +1,12 @@
-import { Directionality } from '@angular/cdk/bidi';
-import {
-  DOWN_ARROW,
-  END,
-  ENTER,
-  HOME,
-  LEFT_ARROW,
-  PAGE_DOWN,
-  PAGE_UP,
-  RIGHT_ARROW,
-  SPACE,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
-import {
-  AfterContentInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Optional,
-  Output,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-import {
-  NgxMatCalendarBody,
-  NgxMatCalendarCell,
-  NgxMatCalendarCellClassFunction,
-  NgxMatCalendarUserEvent,
-} from './calendar-body';
-import { NgxMatDateAdapter } from './core/date-adapter';
-import { NgxDateRange } from './date-selection-model';
-import { createMissingDateImplError } from './datepicker-errors';
+import {Directionality} from '@angular/cdk/bidi';
+import {DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, SPACE, UP_ARROW,} from '@angular/cdk/keycodes';
+import {AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Optional, Output, ViewChild, ViewEncapsulation,} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {startWith} from 'rxjs/operators';
+import {NgxMatCalendarBody, NgxMatCalendarCell, NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent,} from './calendar-body';
+import {NgxMatDateAdapter} from './core/date-adapter';
+import {NgxDateRange} from './date-selection-model';
+import {createMissingDateImplError} from './datepicker-errors';
 
 export const yearsPerPage = 24;
 
@@ -50,6 +22,10 @@ export const yearsPerRow = 4;
   exportAs: 'ngxMatMultiYearView',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgxMatCalendarBody
+  ]
 })
 export class NgxMatMultiYearView<D> implements AfterContentInit, OnDestroy {
   private _rerenderSubscription = Subscription.EMPTY;

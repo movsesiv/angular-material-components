@@ -33,6 +33,10 @@ import {
   yearsPerPage,
 } from './multi-year-view';
 import { NgxMatYearView } from './year-view';
+import {DialogModule} from "@angular/cdk/dialog";
+import {NgSwitch, NgSwitchCase} from "@angular/common";
+import {A11yModule} from "@angular/cdk/a11y";
+import {MatButtonModule} from "@angular/material/button";
 
 let calendarHeaderId = 1;
 
@@ -49,6 +53,10 @@ export type NgxMatCalendarView = 'month' | 'year' | 'multi-year';
   exportAs: 'ngxMatCalendarHeader',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    MatButtonModule
+  ],
+  standalone: true
 })
 export class NgxMatCalendarHeader<D> {
   constructor(
@@ -227,6 +235,16 @@ export class NgxMatCalendarHeader<D> {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [NGX_MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER],
+  imports: [
+    NgxMatMonthView,
+    NgxMatYearView,
+    NgxMatMultiYearView,
+    DialogModule,
+    NgSwitch,
+    A11yModule,
+    NgSwitchCase
+  ],
+  standalone: true
 })
 export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
   /** An input indicating the type of the header component, if set. */

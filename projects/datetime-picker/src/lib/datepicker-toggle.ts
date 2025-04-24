@@ -16,14 +16,16 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import {MatButton, MatButtonModule} from '@angular/material/button';
 import { Observable, Subscription, merge, of as observableOf } from 'rxjs';
 import { NgxMatDatepickerControl, NgxMatDatepickerPanel } from './datepicker-base';
 import { NgxMatDatepickerIntl } from './datepicker-intl';
+import {NgIf} from "@angular/common";
 
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 @Directive({
   selector: '[ngxMatDatepickerToggleIcon]',
+  standalone: true,
 })
 export class NgxMatDatepickerToggleIcon { }
 
@@ -47,6 +49,11 @@ export class NgxMatDatepickerToggleIcon { }
   exportAs: 'ngxMatDatepickerToggle',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    NgIf
+  ]
 })
 export class NgxMatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnDestroy {
   private _stateChanges = Subscription.EMPTY;

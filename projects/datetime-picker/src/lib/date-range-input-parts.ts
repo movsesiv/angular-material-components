@@ -196,6 +196,7 @@ const _NgxMatDateRangeInputBase = mixinErrorState(NgxMatDateRangeInputPartBase);
 /** Input for entering the start date in a `mat-date-range-input`. */
 @Directive({
   selector: 'input[ngxMatStartDate]',
+  standalone: true,
   host: {
     'class': 'mat-start-date mat-date-range-input-inner',
     '[disabled]': 'disabled',
@@ -309,6 +310,7 @@ export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> implements 
 /** Input for entering the end date in a `mat-date-range-input`. */
 @Directive({
   selector: 'input[ngxMatEndDate]',
+  standalone: true,
   host: {
     'class': 'mat-end-date mat-date-range-input-inner',
     '[disabled]': 'disabled',

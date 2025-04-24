@@ -1,27 +1,12 @@
-import { AnimationEvent } from '@angular/animations';
-import { ListKeyManagerModifierKey } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
-import { BooleanInput, coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
-import {
-  DOWN_ARROW,
-  ESCAPE,
-  LEFT_ARROW,
-  PAGE_DOWN,
-  PAGE_UP,
-  RIGHT_ARROW,
-  UP_ARROW,
-  hasModifierKey,
-} from '@angular/cdk/keycodes';
-import {
-  FlexibleConnectedPositionStrategy,
-  Overlay,
-  OverlayConfig,
-  OverlayRef,
-  ScrollStrategy,
-} from '@angular/cdk/overlay';
-import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
-import { ComponentPortal, ComponentType, TemplatePortal } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
+import {AnimationEvent} from '@angular/animations';
+import {A11yModule, ListKeyManagerModifierKey} from '@angular/cdk/a11y';
+import {Directionality} from '@angular/cdk/bidi';
+import {BooleanInput, coerceBooleanProperty, coerceStringArray} from '@angular/cdk/coercion';
+import {DOWN_ARROW, ESCAPE, hasModifierKey, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW,} from '@angular/cdk/keycodes';
+import {FlexibleConnectedPositionStrategy, Overlay, OverlayConfig, OverlayRef, ScrollStrategy,} from '@angular/cdk/overlay';
+import {_getFocusedElementPierceShadowDom} from '@angular/cdk/platform';
+import {ComponentPortal, ComponentType, TemplatePortal} from '@angular/cdk/portal';
+import {DOCUMENT, NgClass, NgIf} from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -32,6 +17,7 @@ import {
   ElementRef,
   EventEmitter,
   Inject,
+  inject,
   InjectionToken,
   Input,
   NgZone,
@@ -44,28 +30,24 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
-  inject,
 } from '@angular/core';
-import { CanColor, ThemePalette, mixinColor } from '@angular/material/core';
-import { Observable, Subject, Subscription, merge } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { NgxMatCalendar, NgxMatCalendarView } from './calendar';
-import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
-import { NgxMatDateAdapter } from './core/date-adapter';
-import {
-  NGX_MAT_DATE_RANGE_SELECTION_STRATEGY,
-  NgxMatDateRangeSelectionStrategy,
-} from './date-range-selection-strategy';
-import {
-  NgxDateRange,
-  NgxExtractDateTypeFromSelection,
-  NgxMatDateSelectionModel,
-} from './date-selection-model';
-import { ngxMatDatepickerAnimations } from './datepicker-animations';
-import { createMissingDateImplError } from './datepicker-errors';
-import { NgxDateFilterFn } from './datepicker-input-base';
-import { NgxMatDatepickerIntl } from './datepicker-intl';
-import { DEFAULT_STEP } from './utils/date-utils';
+import {CanColor, mixinColor, ThemePalette} from '@angular/material/core';
+import {merge, Observable, Subject, Subscription} from 'rxjs';
+import {filter, take} from 'rxjs/operators';
+import {NgxMatCalendar, NgxMatCalendarView} from './calendar';
+import {NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent} from './calendar-body';
+import {NgxMatDateAdapter} from './core/date-adapter';
+import {NGX_MAT_DATE_RANGE_SELECTION_STRATEGY, NgxMatDateRangeSelectionStrategy,} from './date-range-selection-strategy';
+import {NgxDateRange, NgxExtractDateTypeFromSelection, NgxMatDateSelectionModel,} from './date-selection-model';
+import {ngxMatDatepickerAnimations} from './datepicker-animations';
+import {createMissingDateImplError} from './datepicker-errors';
+import {NgxDateFilterFn} from './datepicker-input-base';
+import {NgxMatDatepickerIntl} from './datepicker-intl';
+import {DEFAULT_STEP} from './utils/date-utils';
+import {FormsModule} from "@angular/forms";
+import {NgxMatTimepickerComponent} from "./timepicker.component";
+import {DialogModule} from "@angular/cdk/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 /** Used to generate a unique ID for each datepicker instance. */
 let datepickerUid = 0;
@@ -122,9 +104,20 @@ const _NgxMatDatepickerContentBase = mixinColor(
   },
   animations: [ngxMatDatepickerAnimations.transformPanel, ngxMatDatepickerAnimations.fadeInCalendar],
   exportAs: 'ngxMatDatepickerContent',
+  standalone: true,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['color'],
+  imports: [
+    A11yModule,
+    NgxMatCalendar,
+    FormsModule,
+    NgxMatTimepickerComponent,
+    DialogModule,
+    NgClass,
+    MatButtonModule,
+    NgIf
+  ]
 })
 export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   extends _NgxMatDatepickerContentBase

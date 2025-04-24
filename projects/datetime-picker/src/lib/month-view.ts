@@ -47,6 +47,7 @@ import {
 } from './date-range-selection-strategy';
 import { NgxDateRange } from './date-selection-model';
 import { createMissingDateImplError } from './datepicker-errors';
+import {NgForOf} from "@angular/common";
 
 const DAYS_PER_WEEK = 7;
 
@@ -60,6 +61,11 @@ const DAYS_PER_WEEK = 7;
   exportAs: 'ngxMatMonthView',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgxMatCalendarBody,
+    NgForOf
+  ],
+  standalone: true
 })
 export class NgxMatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
   private _rerenderSubscription = Subscription.EMPTY;

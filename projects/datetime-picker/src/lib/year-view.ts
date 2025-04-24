@@ -27,7 +27,6 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import {
@@ -51,6 +50,10 @@ import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
   exportAs: 'ngxMatYearView',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgxMatCalendarBody
+  ]
 })
 export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
   private _rerenderSubscription = Subscription.EMPTY;

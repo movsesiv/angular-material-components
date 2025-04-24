@@ -12,6 +12,7 @@ import { NgxMatDatepickerBase, NgxMatDatepickerControl } from './datepicker-base
   exportAs: 'ngxMatDatetimePicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
   providers: [
     NGX_MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER,
     { provide: NgxMatDatepickerBase, useExisting: NgxMatDatetimepicker },

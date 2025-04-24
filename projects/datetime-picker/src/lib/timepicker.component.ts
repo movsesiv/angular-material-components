@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, forwardRef, Input, OnChanges, OnInit, Optional, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import {ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators} from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -8,6 +8,10 @@ import {
   createMissingDateImplError, DEFAULT_STEP, formatTwoDigitTimeValue,
   LIMIT_TIMES, MERIDIANS, NUMERIC_REGEX, PATTERN_INPUT_HOUR, PATTERN_INPUT_MINUTE, PATTERN_INPUT_SECOND
 } from './utils/date-utils';
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'ngx-mat-timepicker',
@@ -25,6 +29,14 @@ import {
   ],
   exportAs: 'ngxMatTimepicker',
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    MatIconModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    NgIf
+  ]
 })
 export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnInit, OnChanges {
 
@@ -135,7 +147,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
 
   /**
    * Format input
-   * @param input 
+   * @param input
    */
   public formatInput(input: HTMLInputElement) {
     input.value = input.value.replace(NUMERIC_REGEX, '');
@@ -206,7 +218,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
 
   /**
    * Get next value by property
-   * @param prop 
+   * @param prop
    * @param up
    */
   private _getNextValueByProp(prop: string, up?: boolean): number {

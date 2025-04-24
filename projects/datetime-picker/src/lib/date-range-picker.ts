@@ -21,6 +21,7 @@ export interface NgxMatDateRangePickerInput<D> extends NgxMatDatepickerControl<D
 @Component({
   selector: 'ngx-mat-date-range-picker',
   template: '',
+  standalone: true,
   exportAs: 'ngxMatDateRangePicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

@@ -1,4 +1,4 @@
-import { FocusOrigin } from '@angular/cdk/a11y';
+import {A11yModule, FocusOrigin} from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
@@ -40,6 +40,7 @@ let nextUniqueId = 0;
   templateUrl: 'date-range-input.html',
   styleUrls: ['date-range-input.scss'],
   exportAs: 'ngxMatDateRangeInput',
+  standalone: true,
   host: {
     'class': 'mat-date-range-input',
     '[class.mat-date-range-input-hide-placeholders]': '_shouldHidePlaceholders()',
@@ -55,9 +56,12 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [
-    { provide: MatFormFieldControl, useExisting: NgxMatDateRangeInput },
-    { provide: NGX_MAT_DATE_RANGE_INPUT_PARENT, useExisting: NgxMatDateRangeInput },
+    {provide: MatFormFieldControl, useExisting: NgxMatDateRangeInput},
+    {provide: NGX_MAT_DATE_RANGE_INPUT_PARENT, useExisting: NgxMatDateRangeInput},
   ],
+  imports: [
+    A11yModule
+  ]
 })
 export class NgxMatDateRangeInput<D>
   implements
