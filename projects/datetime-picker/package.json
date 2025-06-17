@@ -1,16 +1,16 @@
 {
-  "name": "@angular-material-components/datetime-picker",
-  "version": "17.0.1",
+  "name": "@movsesiv/datetime-picker",
+  "version": "17.0.5",
   "description": "Angular Material Datetime Picker",
   "author": "HO Hong Quan",
   "repository": {
     "type": "git",
-    "url": "https://github.com/h2qutc/angular-material-components.git"
+    "url": "https://github.com/movsesiv/angular-material-components.git"
   },
   "bugs": {
-    "url": "https://github.com/h2qutc/angular-material-components/issues"
+    "url": "https://github.com/movsesiv/angular-material-components/issues"
   },
-  "homepage": "https://github.com/h2qutc/angular-material-components",
+  "homepage": "https://github.com/movsesiv/angular-material-components",
   "keywords": [
     "angular",
     "angular2",
