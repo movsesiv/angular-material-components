@@ -24,6 +24,7 @@ import { NgxMatDatepickerIntl } from './datepicker-intl';
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 @Directive({
   selector: '[ngxMatDatepickerToggleIcon]',
+  standalone: false
 })
 export class NgxMatDatepickerToggleIcon { }
 
@@ -47,6 +48,7 @@ export class NgxMatDatepickerToggleIcon { }
   exportAs: 'ngxMatDatepickerToggle',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class NgxMatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnDestroy {
   private _stateChanges = Subscription.EMPTY;

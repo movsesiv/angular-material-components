@@ -71,7 +71,9 @@ export interface _NgxMatFormFieldPartial {
 }
 
 /** Base class for datepicker inputs. */
-@Directive()
+@Directive({
+  standalone: false
+})
 export abstract class NgxMatDatepickerInputBase<S, D = NgxExtractDateTypeFromSelection<S>>
   implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy, Validator {
   /** Whether the component has been initialized. */

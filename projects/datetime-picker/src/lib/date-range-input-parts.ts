@@ -63,7 +63,9 @@ export const NGX_MAT_DATE_RANGE_INPUT_PARENT = new InjectionToken<NgxMatDateRang
 /**
  * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
  */
-@Directive()
+@Directive({
+  standalone: false
+})
 abstract class NgxMatDateRangeInputPartBase<D>
   extends NgxMatDatepickerInputBase<NgxDateRange<D>>
   implements OnInit, DoCheck {
@@ -217,6 +219,7 @@ const _NgxMatDateRangeInputBase = mixinErrorState(NgxMatDateRangeInputPartBase);
   // seem to pick them up from the base class. See #20932.
   outputs: ['dateChange', 'dateInput'],
   inputs: ['errorStateMatcher'],
+  standalone: false
 })
 export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> implements CanUpdateErrorState {
   /** Validator that checks that the start date isn't after the end date. */
@@ -330,6 +333,7 @@ export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> implements 
   // seem to pick them up from the base class. See #20932.
   outputs: ['dateChange', 'dateInput'],
   inputs: ['errorStateMatcher'],
+  standalone: false
 })
 export class NgxMatEndDate<D> extends _NgxMatDateRangeInputBase<D> implements CanUpdateErrorState {
   /** Validator that checks that the end date isn't before the start date. */

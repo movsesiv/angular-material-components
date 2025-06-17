@@ -58,6 +58,7 @@ let nextUniqueId = 0;
     { provide: MatFormFieldControl, useExisting: NgxMatDateRangeInput },
     { provide: NGX_MAT_DATE_RANGE_INPUT_PARENT, useExisting: NgxMatDateRangeInput },
   ],
+  standalone: false
 })
 export class NgxMatDateRangeInput<D>
   implements

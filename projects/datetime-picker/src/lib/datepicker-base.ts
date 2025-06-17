@@ -125,6 +125,7 @@ const _NgxMatDatepickerContentBase = mixinColor(
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['color'],
+  standalone: false
 })
 export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   extends _NgxMatDatepickerContentBase
@@ -354,7 +355,9 @@ export interface NgxMatDatepickerPanel<
 }
 
 /** Base class for a datepicker. */
-@Directive()
+@Directive({
+  standalone: false
+})
 export abstract class NgxMatDatepickerBase<
   C extends NgxMatDatepickerControl<D>,
   S,

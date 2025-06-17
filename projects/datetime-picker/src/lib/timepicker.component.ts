@@ -25,6 +25,7 @@ import {
   ],
   exportAs: 'ngxMatTimepicker',
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnInit, OnChanges {
 
@@ -135,7 +136,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
 
   /**
    * Format input
-   * @param input 
+   * @param input
    */
   public formatInput(input: HTMLInputElement) {
     input.value = input.value.replace(NUMERIC_REGEX, '');
@@ -206,7 +207,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
 
   /**
    * Get next value by property
-   * @param prop 
+   * @param prop
    * @param up
    */
   private _getNextValueByProp(prop: string, up?: boolean): number {
