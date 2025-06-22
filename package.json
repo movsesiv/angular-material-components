@@ -39,7 +39,7 @@
     "build:moment-adapter": "ng build NgxMatMomentAdapter",
     "build:color-picker": "ng build NgxMatColorPicker",
     "build:file-input": "ng build NgxMatFileInput",
-    "publish:datetime-picker": "ng build NgxMatDatetimePicker && cd dist/@angular-material-components/datetime-picker && npm publish --access public && cd .. && cd .. && cd ..",
+    "publish:datetime-picker": "ng build NgxMatDatetimePicker && cd dist/@movsesiv/datetime-picker && npm publish --access public && cd .. && cd .. && cd ..",
     "publish:moment-adapter": "ng build NgxMatMomentAdapter && cd dist/@angular-material-components/moment-adapter && npm publish --access public  && cd .. && cd .. && cd ..",
     "publish:color-picker": "ng build NgxMatColorPicker && cd dist/@angular-material-components/color-picker && npm publish --access public  && cd .. && cd .. && cd ..",
     "publish:file-input": "ng build NgxMatFileInput && cd dist/@angular-material-components/file-input && npm publish --access public  && cd .. && cd .. && cd ..",

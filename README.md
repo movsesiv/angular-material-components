@@ -23,7 +23,7 @@ And thank you so much for your coffee ❤️
 
 Choose the version corresponding to your Angular version:
 
- Angular     | @angular-material-components/datetime-picker
+ Angular     | @movsesiv/datetime-picker
  ----------- | -------------------
  16          | 16.x+
  15          | 15.x+ OR 9.x+ for legacy import
@@ -39,13 +39,13 @@ Choose the version corresponding to your Angular version:
 
 ### Datetime Picker
 
-[![npm version](https://badge.fury.io/js/%40angular-material-components%2Fdatetime-picker.svg)](https://www.npmjs.com/package/@angular-material-components/datetime-picker)
-[![Github All Releases](https://img.shields.io/npm/dt/@angular-material-components/datetime-picker.svg)]()
+[![npm version](https://badge.fury.io/js/%40movsesiv%2Fdatetime-picker.svg)](https://www.npmjs.com/package/@movsesiv/datetime-picker)
+[![Github All Releases](https://img.shields.io/npm/dt/@movsesiv/datetime-picker.svg)]()
 
 [TUTORIAL HERE](https://h2qutc.github.io/angular-material-components/)
 
 ```
-npm install --save  @angular-material-components/datetime-picker
+npm install --save  @movsesiv/datetime-picker
 ```
 
 ![Alt Text](demo_datetime_picker.png)
