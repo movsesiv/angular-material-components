@@ -3,6 +3,7 @@ import { Color } from '../../models';
 import { ThemePalette } from '@angular/material/core';
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-color-palette',
   templateUrl: 'color-palette.component.html',
   styleUrls: ['color-palette.component.scss'],

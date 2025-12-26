@@ -45,6 +45,7 @@ export const yearsPerRow = 4;
  * @docs-private
  */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-multi-year-view',
   templateUrl: 'multi-year-view.html',
   exportAs: 'ngxMatMultiYearView',

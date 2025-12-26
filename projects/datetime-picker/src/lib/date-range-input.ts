@@ -36,6 +36,7 @@ import { NgxDateFilterFn, _NgxMatFormFieldPartial, dateInputsHaveChanged } from 
 let nextUniqueId = 0;
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-date-range-input',
   templateUrl: 'date-range-input.html',
   styleUrls: ['date-range-input.scss'],

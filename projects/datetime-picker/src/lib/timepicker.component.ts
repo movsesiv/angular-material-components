@@ -10,6 +10,7 @@ import {
 } from './utils/date-utils';
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-timepicker',
   templateUrl: './timepicker.component.html',
   styleUrls: ['./timepicker.component.scss'],

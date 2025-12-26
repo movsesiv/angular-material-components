@@ -3,6 +3,7 @@ import { Color } from '../../models';
 import { BASIC_COLORS, stringInputToObject } from '../../helpers';
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-color-collection',
   templateUrl: './color-collection.component.html',
   styleUrls: ['./color-collection.component.scss'],

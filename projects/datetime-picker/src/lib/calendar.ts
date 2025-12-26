@@ -44,6 +44,7 @@ export type NgxMatCalendarView = 'month' | 'year' | 'multi-year';
 
 /** Default header for MatCalendar */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-calendar-header',
   templateUrl: 'calendar-header.html',
   exportAs: 'ngxMatCalendarHeader',
@@ -217,6 +218,7 @@ export class NgxMatCalendarHeader<D> {
 
 /** A calendar that is used as part of the datepicker. */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],

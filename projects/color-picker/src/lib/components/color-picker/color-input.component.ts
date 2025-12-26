@@ -39,6 +39,7 @@ export const MAT_COLORPICKER_VALIDATORS: any = {
 };
 
 @Directive({
+  standalone: false,
   selector: 'input[ngxMatColorPicker]',
   providers: [
     MAT_COLORPICKER_VALUE_ACCESSOR,

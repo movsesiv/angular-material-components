@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
 @Component({
+  standalone: false,
   selector: 'app-demo-time',
   templateUrl: './demo-time.component.html',
   styleUrls: ['./demo-time.component.scss']

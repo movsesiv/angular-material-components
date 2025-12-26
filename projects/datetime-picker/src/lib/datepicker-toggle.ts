@@ -23,11 +23,13 @@ import { NgxMatDatepickerIntl } from './datepicker-intl';
 
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 @Directive({
+  standalone: false,
   selector: '[ngxMatDatepickerToggleIcon]',
 })
 export class NgxMatDatepickerToggleIcon { }
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-datepicker-toggle',
   templateUrl: 'datepicker-toggle.html',
   styleUrls: ['datepicker-toggle.scss'],

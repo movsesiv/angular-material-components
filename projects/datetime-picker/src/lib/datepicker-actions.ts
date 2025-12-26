@@ -16,6 +16,7 @@ import {NgxMatDatepickerBase, NgxMatDatepickerControl} from './datepicker-base';
 
 /** Button that will close the datepicker and assign the current selection to the data model. */
 @Directive({
+  standalone: false,
   selector: '[ngxMatDatepickerApply], [ngxMatDateRangePickerApply]',
   host: {'(click)': '_applySelection()'},
 })
@@ -30,6 +31,7 @@ export class NgxMatDatepickerApply {
 
 /** Button that will close the datepicker and discard the current selection. */
 @Directive({
+  standalone: false,
   selector: '[ngxMatDatepickerCancel], [ngxMatDateRangePickerCancel]',
   host: {'(click)': '_datepicker.close()'},
 })
@@ -42,6 +44,7 @@ export class NgxMatDatepickerCancel {
  * to the bottom of a datepicker or date range picker.
  */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-datepicker-actions, ngx-mat-date-range-picker-actions',
   styleUrls: ['datepicker-actions.scss'],
   template: `

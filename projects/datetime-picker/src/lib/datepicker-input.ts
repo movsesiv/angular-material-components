@@ -28,6 +28,7 @@ export const NGX_MAT_DATEPICKER_VALIDATORS: any = {
 
 /** Directive used to connect an input to a MatDatepicker. */
 @Directive({
+  standalone: false,
   selector: 'input[ngxMatDatetimePicker]',
   providers: [
     NGX_MAT_DATEPICKER_VALUE_ACCESSOR,

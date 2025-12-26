@@ -46,7 +46,7 @@ import {
   ViewEncapsulation,
   inject,
 } from '@angular/core';
-import { CanColor, ThemePalette, mixinColor } from '@angular/material/core';
+import { ThemePalette } from '@angular/material/core';
 import { Observable, Subject, Subscription, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { NgxMatCalendar, NgxMatCalendarView } from './calendar';
@@ -95,11 +95,10 @@ export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 
 // Boilerplate for applying mixins to MatDatepickerContent.
 /** @docs-private */
-const _NgxMatDatepickerContentBase = mixinColor(
-  class {
-    constructor(public _elementRef: ElementRef) { }
-  },
-);
+class _NgxMatDatepickerContentBase {
+  constructor(public _elementRef: ElementRef) { }
+  color: ThemePalette;
+}
 
 /**
  * Component used as the content for the datepicker overlay. We use this instead of using
@@ -109,6 +108,7 @@ const _NgxMatDatepickerContentBase = mixinColor(
  * @docs-private
  */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
@@ -119,6 +119,9 @@ const _NgxMatDatepickerContentBase = mixinColor(
     '(@transformPanel.done)': '_handleAnimationEvent($event)',
     '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
     '[class.mat-datepicker-content-touch-with-time]': '!datepicker.hideTime',
+    '[class.mat-primary]': 'color === "primary"',
+    '[class.mat-accent]': 'color === "accent"',
+    '[class.mat-warn]': 'color === "warn"',
   },
   animations: [ngxMatDatepickerAnimations.transformPanel, ngxMatDatepickerAnimations.fadeInCalendar],
   exportAs: 'ngxMatDatepickerContent',
@@ -128,7 +131,7 @@ const _NgxMatDatepickerContentBase = mixinColor(
 })
 export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   extends _NgxMatDatepickerContentBase
-  implements OnInit, AfterViewInit, OnDestroy, CanColor {
+  implements OnInit, AfterViewInit, OnDestroy {
   private _subscriptions = new Subscription();
   private _model: NgxMatDateSelectionModel<S, D>;
   /** Reference to the internal calendar component. */

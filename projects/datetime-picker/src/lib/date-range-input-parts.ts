@@ -23,11 +23,10 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  CanUpdateErrorState,
   ErrorStateMatcher,
   MAT_DATE_FORMATS,
   MatDateFormats,
-  mixinErrorState
+  _ErrorStateTracker
 } from '@angular/material/core';
 import { _computeAriaAccessibleName } from './aria-accessible-name';
 import { NgxMatDateAdapter } from './core/date-adapter';
@@ -191,10 +190,37 @@ abstract class NgxMatDateRangeInputPartBase<D>
   }
 }
 
-const _NgxMatDateRangeInputBase = mixinErrorState(NgxMatDateRangeInputPartBase);
+abstract class _NgxMatDateRangeInputBase<D> extends NgxMatDateRangeInputPartBase<D> {
+  _errorStateTracker: _ErrorStateTracker;
+
+  constructor(
+    @Inject(NGX_MAT_DATE_RANGE_INPUT_PARENT) public override _rangeInput: NgxMatDateRangeInputParent<D>,
+    public override _elementRef: ElementRef<HTMLInputElement>,
+    public override _defaultErrorStateMatcher: ErrorStateMatcher,
+    _injector: Injector,
+    @Optional() public override _parentForm: NgForm,
+    @Optional() public override _parentFormGroup: FormGroupDirective,
+    @Optional() dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() @Inject(NGX_MAT_DATE_FORMATS) dateFormats: NgxMatDateFormats,
+  ) {
+    super(_rangeInput, _elementRef, _defaultErrorStateMatcher, _injector, _parentForm, _parentFormGroup, dateAdapter, dateFormats);
+  }
+
+  get errorState() {
+    return this._errorStateTracker.errorState;
+  }
+  set errorState(value: boolean) {
+    this._errorStateTracker.errorState = value;
+  }
+
+  updateErrorState() {
+    this._errorStateTracker.updateErrorState();
+  }
+}
 
 /** Input for entering the start date in a `mat-date-range-input`. */
 @Directive({
+  standalone: false,
   selector: 'input[ngxMatStartDate]',
   host: {
     'class': 'mat-start-date mat-date-range-input-inner',
@@ -218,7 +244,7 @@ const _NgxMatDateRangeInputBase = mixinErrorState(NgxMatDateRangeInputPartBase);
   outputs: ['dateChange', 'dateInput'],
   inputs: ['errorStateMatcher'],
 })
-export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> implements CanUpdateErrorState {
+export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> {
   /** Validator that checks that the start date isn't after the end date. */
   private _startValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const start = this._dateAdapter.getValidDateOrNull(
@@ -249,6 +275,14 @@ export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> implements 
       parentFormGroup,
       dateAdapter,
       dateFormats,
+    );
+
+    this._errorStateTracker = new _ErrorStateTracker(
+      this._defaultErrorStateMatcher,
+      this.ngControl,
+      this._parentFormGroup,
+      this._parentForm,
+      this.stateChanges,
     );
   }
 
@@ -304,10 +338,16 @@ export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> implements 
       super._onKeydown(event);
     }
   }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this._errorStateTracker.ngControl = this.ngControl;
+  }
 }
 
 /** Input for entering the end date in a `mat-date-range-input`. */
 @Directive({
+  standalone: false,
   selector: 'input[ngxMatEndDate]',
   host: {
     'class': 'mat-end-date mat-date-range-input-inner',
@@ -331,7 +371,7 @@ export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> implements 
   outputs: ['dateChange', 'dateInput'],
   inputs: ['errorStateMatcher'],
 })
-export class NgxMatEndDate<D> extends _NgxMatDateRangeInputBase<D> implements CanUpdateErrorState {
+export class NgxMatEndDate<D> extends _NgxMatDateRangeInputBase<D> {
   /** Validator that checks that the end date isn't before the start date. */
   private _endValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const end = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
@@ -360,6 +400,14 @@ export class NgxMatEndDate<D> extends _NgxMatDateRangeInputBase<D> implements Ca
       parentFormGroup,
       dateAdapter,
       dateFormats,
+    );
+
+    this._errorStateTracker = new _ErrorStateTracker(
+      this._defaultErrorStateMatcher,
+      this.ngControl,
+      this._parentFormGroup,
+      this._parentForm,
+      this.stateChanges,
     );
   }
 
@@ -412,5 +460,10 @@ export class NgxMatEndDate<D> extends _NgxMatDateRangeInputBase<D> implements Ca
     } else {
       super._onKeydown(event);
     }
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this._errorStateTracker.ngControl = this.ngControl;
   }
 }

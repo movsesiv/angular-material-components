@@ -7,11 +7,13 @@ import { Subscription, merge, of } from 'rxjs';
 import { NgxMatColorPickerComponent } from '../color-picker/color-picker.component';
 
 @Directive({
+  standalone: false,
   selector: '[ngxMatColorpickerToggleIcon]',
 })
 export class NgxMatColorpickerToggleIcon { }
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-color-toggle',
   templateUrl: './color-toggle.component.html',
   styleUrls: ['./color-toggle.component.scss'],
@@ -88,7 +90,7 @@ export class NgxMatColorToggleComponent implements OnInit, AfterContentInit, OnC
       merge(this.picker.openedStream, this.picker.closedStream) : of();
     this._stateChanges.unsubscribe();
 
-    this._stateChanges = merge(disabled$, inputDisabled$, pickerToggled$).subscribe(() => this._cd.markForCheck());
+    this._stateChanges = merge(disabled$ as any, inputDisabled$ as any, pickerToggled$ as any).subscribe(() => this._cd.markForCheck());
   }
 
 }

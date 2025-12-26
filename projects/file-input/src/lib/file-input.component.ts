@@ -2,34 +2,32 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, Component, ContentChild, Directive, DoCheck, ElementRef, forwardRef, Input, OnDestroy, Optional, Self, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, ErrorStateMatcher, mixinErrorState, ThemePalette } from '@angular/material/core';
+import { ErrorStateMatcher, ThemePalette, _ErrorStateTracker } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { FileOrArrayFile } from './file-input-type';
 
 let nextUniqueId = 0;
 
-const _NgxMatInputMixinBase = mixinErrorState(
-  class {
-
-    readonly stateChanges = new Subject<void>();
-
-    constructor(
-      public _defaultErrorStateMatcher: ErrorStateMatcher,
-      public _parentForm: NgForm,
-      public _parentFormGroup: FormGroupDirective,
-      /** @docs-private */
-      public ngControl: NgControl,
-    ) { }
-  },
-);
+class _NgxMatInputMixinBase {
+  readonly stateChanges = new Subject<void>();
+  constructor(
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    public _parentForm: NgForm,
+    public _parentFormGroup: FormGroupDirective,
+    /** @docs-private */
+    public ngControl: NgControl,
+  ) { }
+}
 
 @Directive({
+  standalone: false,
   selector: '[ngxMatFileInputIcon]'
 })
 export class NgxMatFileInputIcon { }
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-file-input',
   templateUrl: 'file-input.component.html',
   styleUrls: ['file-input.component.scss'],
@@ -43,7 +41,9 @@ export class NgxMatFileInputIcon { }
   exportAs: 'ngx-mat-file-input'
 })
 export class NgxMatFileInputComponent extends _NgxMatInputMixinBase implements MatFormFieldControl<FileOrArrayFile>,
-  OnDestroy, DoCheck, CanUpdateErrorState, ControlValueAccessor {
+  OnDestroy, DoCheck, ControlValueAccessor {
+
+  private _errorStateTracker: _ErrorStateTracker;
 
   @ViewChild('inputFile', { static: true }) private _inputFileRef: ElementRef;
   @ViewChild('inputValue', { static: true }) private _inputValueRef: ElementRef;
@@ -61,7 +61,14 @@ export class NgxMatFileInputComponent extends _NgxMatInputMixinBase implements M
 
   readonly stateChanges: Subject<void> = new Subject<void>();
   focused: boolean = false;
-  errorState: boolean;
+
+  get errorState(): boolean {
+    return this._errorStateTracker.errorState;
+  }
+  set errorState(value: boolean) {
+    this._errorStateTracker.errorState = value;
+  }
+
   controlType: string = 'ngx-mat-file-input';
   autofilled: boolean = false;
 
@@ -107,12 +114,16 @@ export class NgxMatFileInputComponent extends _NgxMatInputMixinBase implements M
   set required(value: boolean) { this._required = coerceBooleanProperty(value); }
   protected _required = false;
 
-  @Input() errorStateMatcher: ErrorStateMatcher;
+  @Input()
+  get errorStateMatcher(): ErrorStateMatcher { return this._errorStateTracker.matcher; }
+  set errorStateMatcher(value: ErrorStateMatcher) { this._errorStateTracker.matcher = value; }
 
   @Input()
   get value(): FileOrArrayFile { return this._value; }
   set value(value: FileOrArrayFile) {
     this._value = value;
+    this._updateInputValue(value);
+    this.stateChanges.next();
   }
   protected _value: FileOrArrayFile;
 
@@ -141,12 +152,24 @@ export class NgxMatFileInputComponent extends _NgxMatInputMixinBase implements M
     _defaultErrorStateMatcher: ErrorStateMatcher) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
+    this._errorStateTracker = new _ErrorStateTracker(
+      _defaultErrorStateMatcher,
+      ngControl,
+      _parentFormGroup,
+      _parentForm,
+      this.stateChanges,
+    );
+
     this.id = this.id;
 
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
 
+  }
+
+  updateErrorState() {
+    this._errorStateTracker.updateErrorState();
   }
 
 

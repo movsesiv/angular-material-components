@@ -46,6 +46,7 @@ import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
  * @docs-private
  */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-year-view',
   templateUrl: 'year-view.html',
   exportAs: 'ngxMatYearView',

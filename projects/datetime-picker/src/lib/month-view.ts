@@ -55,6 +55,7 @@ const DAYS_PER_WEEK = 7;
  * @docs-private
  */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-month-view',
   templateUrl: 'month-view.html',
   exportAs: 'ngxMatMonthView',

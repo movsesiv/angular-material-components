@@ -7,6 +7,7 @@ import { NgxMatDatepickerBase, NgxMatDatepickerControl } from './datepicker-base
 // if angular adds support for `exportAs: '$implicit'` on directives.
 /** Component responsible for managing the datepicker popup/dialog. */
 @Component({
+  standalone: false,
   selector: 'ngx-mat-datetime-picker',
   template: '',
   exportAs: 'ngxMatDatetimePicker',

@@ -3,6 +3,7 @@ import { Directive, ElementRef, AfterViewInit } from '@angular/core';
 var hljs = require('highlight.js/lib/common');
 
 @Directive({
+  standalone: false,
     selector: 'code[ngxMatHighlight]'
 })
 export class NgxMatHighlightDirective implements AfterViewInit {

@@ -50,6 +50,7 @@ export interface NgxMatCalendarUserEvent<D> {
 let calendarBodyId = 1;
 
 @Component({
+  standalone: false,
   selector: '[ngx-mat-calendar-body]',
   templateUrl: 'calendar-body.html',
   styleUrls: ['calendar-body.scss'],

@@ -7,6 +7,7 @@ const presetFiles = [new File([], "file 1"), new File([], "file 2")];
 const presetFile = new File([], "file 1");
 
 @Component({
+  standalone: false,
   selector: 'app-demo-fileinput',
   templateUrl: './demo-fileinput.component.html',
   styleUrls: ['./demo-fileinput.component.scss']

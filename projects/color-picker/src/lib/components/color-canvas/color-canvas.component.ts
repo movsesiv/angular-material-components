@@ -9,6 +9,7 @@ import { NgxMatBaseColorCanvas } from './base-color-canvas';
 const RADIUS_NOB = 5;
 
 @Component({
+  standalone: false,
   selector: 'ngx-mat-color-canvas',
   templateUrl: './color-canvas.component.html',
   styleUrls: ['./color-canvas.component.scss'],

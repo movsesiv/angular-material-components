@@ -15,7 +15,7 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/angular-material-components",
             "index": "src/index.html",
@@ -211,28 +211,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "angular-material-components",
-  "schematics": {
-    "@schematics/angular:module": {
-      "prefix": "ngx-mat"
-    },
-    "@schematics/angular:component": {
-      "prefix": "ngx-mat",
-      "style": "scss",
-      "skipTests": true
-    },
-    "@schematics/angular:directive": {
-      "prefix": "ngx-mat",
-      "skipTests": true
-    },
-    "@schematics/angular:pipe": {
-      "prefix": "ngx-mat",
-      "skipTests": true
-    },
-    "@schematics/angular:service": {
-      "skipTests": true
     }
   },
   "cli": {
