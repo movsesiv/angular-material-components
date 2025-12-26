@@ -23,26 +23,29 @@
       "node"
     ],
     "paths": {
-      "@angular-material-components/*": [
-        "dist/@angular-material-components/*"
+      "@movsesiv/datetime-picker": [
+        "dist/@movsesiv/datetime-picker"
       ],
-      "@angular-material-components/color-picker": [
-        "dist/@angular-material-components/color-picker"
+      "@movsesiv/datetime-picker/*": [
+        "dist/@movsesiv/datetime-picker/*"
       ],
-      "@angular-material-components/color-picker/*": [
-        "dist/@angular-material-components/color-picker/*"
+      "@movsesiv/color-picker": [
+        "dist/@movsesiv/color-picker"
       ],
-      "@angular-material-components/datetime-picker": [
-        "dist/@angular-material-components/datetime-picker"
+      "@movsesiv/color-picker/*": [
+        "dist/@movsesiv/color-picker/*"
       ],
-      "@angular-material-components/datetime-picker/*": [
-        "dist/@angular-material-components/datetime-picker/*"
+      "@movsesiv/file-input": [
+        "dist/@movsesiv/file-input"
       ],
-      "file-input": [
-        "dist/file-input"
+      "@movsesiv/file-input/*": [
+        "dist/@movsesiv/file-input/*"
       ],
-      "file-input/*": [
-        "dist/file-input/*"
+      "@movsesiv/moment-adapter": [
+        "dist/@movsesiv/moment-adapter"
+      ],
+      "@movsesiv/moment-adapter/*": [
+        "dist/@movsesiv/moment-adapter/*"
       ]
     },
     "useDefineForClassFields": false

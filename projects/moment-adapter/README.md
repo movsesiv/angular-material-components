@@ -1,17 +1,17 @@
 # NgxMatMomentAdapter
 
 ## Description 
-Moment Adapter for [@angular-material-components/datetime-picker](https://www.npmjs.com/package/@angular-material-components/datetime-picker)
+Moment Adapter for [@movsesiv/datetime-picker](https://www.npmjs.com/package/@movsesiv/datetime-picker)
 
 ## Getting started
 ```
-npm install --save  @angular-material-components/moment-adapter
+npm install --save  @movsesiv/moment-adapter
 ```
 
 ## Setup
 
 ```
-import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { NgxMatMomentModule } from '@movsesiv/moment-adapter';
 @NgModule({
    ...
    imports: [
