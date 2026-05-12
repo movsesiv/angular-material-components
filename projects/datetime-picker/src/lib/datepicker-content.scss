@@ -21,9 +21,44 @@ $touch-max-width: 750px;
 $touch-max-height: 815px;
 
 
+@keyframes mat-datepicker-enter-dropdown {
+  from { opacity: 0; transform: scale(1, 0.8); }
+  to { opacity: 1; transform: scale(1, 1); }
+}
+
+@keyframes mat-datepicker-enter-dialog {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes mat-datepicker-exit {
+  to { opacity: 0; }
+}
+
+@keyframes mat-datepicker-calendar-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .mat-datepicker-content {
   display: block;
   border-radius: 4px;
+
+  &.mat-datepicker-content-enter-dropdown {
+    animation: mat-datepicker-enter-dropdown 120ms cubic-bezier(0, 0, 0.2, 1) forwards;
+  }
+
+  &.mat-datepicker-content-enter-dialog {
+    animation: mat-datepicker-enter-dialog 150ms cubic-bezier(0, 0, 0.2, 1) forwards;
+  }
+
+  &.mat-datepicker-content-exit {
+    animation: mat-datepicker-exit 100ms linear forwards;
+  }
+
+  ngx-mat-calendar {
+    animation: mat-datepicker-calendar-fade-in 120ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2) both;
+  }
 
   .mat-calendar {
     width: $non-touch-calendar-width;
@@ -47,7 +82,7 @@ $touch-max-height: 815px;
 
     // Hide the button while the overlay is animating, because it's rendered
     // outside of it and it seems to cause scrollbars in some cases (see #21493).
-    .ng-animating & {
+    .mat-datepicker-content-animating & {
       display: none;
     }
   }

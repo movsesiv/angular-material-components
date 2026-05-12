@@ -6,7 +6,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ComponentRef, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgZone, OnDestroy, OnInit, Optional, Output, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { matDatepickerAnimations } from '@angular/material/datepicker';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subject, Subscription, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -43,17 +42,12 @@ class _MatColorpickerContentBase {
   templateUrl: './color-picker-content.component.html',
   styleUrls: ['color-picker-content.component.scss'],
   host: {
-    'class': 'ngx-mat-colorpicker-content',
-    '[@transformPanel]': '"enter"',
+    'class': 'ngx-mat-colorpicker-content ngx-mat-colorpicker-content-enter',
     '[class.ngx-mat-colorpicker-content-touch]': 'picker.touchUi',
     '[class.mat-primary]': 'color === "primary"',
     '[class.mat-accent]': 'color === "accent"',
     '[class.mat-warn]': 'color === "warn"',
   },
-  animations: [
-    matDatepickerAnimations.transformPanel,
-    matDatepickerAnimations.fadeInCalendar,
-  ],
   exportAs: 'ngxMatColorPickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

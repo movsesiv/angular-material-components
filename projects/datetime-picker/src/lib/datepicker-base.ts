@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { ListKeyManagerModifierKey } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput, coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
@@ -61,7 +60,6 @@ import {
   NgxExtractDateTypeFromSelection,
   NgxMatDateSelectionModel,
 } from './date-selection-model';
-import { ngxMatDatepickerAnimations } from './datepicker-animations';
 import { createMissingDateImplError } from './datepicker-errors';
 import { NgxDateFilterFn } from './datepicker-input-base';
 import { NgxMatDatepickerIntl } from './datepicker-intl';
@@ -114,16 +112,17 @@ class _NgxMatDatepickerContentBase {
   styleUrls: ['datepicker-content.scss'],
   host: {
     'class': 'mat-datepicker-content',
-    '[@transformPanel]': '_animationState',
-    '(@transformPanel.start)': '_handleAnimationEvent($event)',
-    '(@transformPanel.done)': '_handleAnimationEvent($event)',
+    '[class.mat-datepicker-content-enter-dropdown]': '_animationState === "enter-dropdown"',
+    '[class.mat-datepicker-content-enter-dialog]': '_animationState === "enter-dialog"',
+    '[class.mat-datepicker-content-exit]': '_animationState === "void"',
+    '[class.mat-datepicker-content-animating]': '_isAnimating',
+    '(animationend)': '_handleAnimationEvent($event)',
     '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
     '[class.mat-datepicker-content-touch-with-time]': '!datepicker.hideTime',
     '[class.mat-primary]': 'color === "primary"',
     '[class.mat-accent]': 'color === "accent"',
     '[class.mat-warn]': 'color === "warn"',
   },
-  animations: [ngxMatDatepickerAnimations.transformPanel, ngxMatDatepickerAnimations.fadeInCalendar],
   exportAs: 'ngxMatDatepickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -134,6 +133,8 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   implements OnInit, AfterViewInit, OnDestroy {
   private _subscriptions = new Subscription();
   private _model: NgxMatDateSelectionModel<S, D>;
+  private _enterAnimationTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _exitAnimationTimeout: ReturnType<typeof setTimeout> | null = null;
   /** Reference to the internal calendar component. */
   @ViewChild(NgxMatCalendar) _calendar: NgxMatCalendar<D>;
 
@@ -199,6 +200,14 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
 
   ngOnInit() {
     this._animationState = this.datepicker.touchUi ? 'enter-dialog' : 'enter-dropdown';
+    this._isAnimating = true;
+    this._enterAnimationTimeout = setTimeout(() => {
+      this._enterAnimationTimeout = null;
+      if (this._isAnimating) {
+        this._isAnimating = false;
+        this._animationDone.next();
+      }
+    }, 200);
   }
 
   ngAfterViewInit() {
@@ -213,6 +222,12 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   ngOnDestroy() {
     this._subscriptions.unsubscribe();
     this._animationDone.complete();
+    if (this._enterAnimationTimeout !== null) {
+      clearTimeout(this._enterAnimationTimeout);
+    }
+    if (this._exitAnimationTimeout !== null) {
+      clearTimeout(this._exitAnimationTimeout);
+    }
   }
 
   onTimeChanged(selectedDateWithTime: D | null) {
@@ -272,15 +287,31 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
 
   _startExitAnimation() {
     this._animationState = 'void';
+    this._isAnimating = true;
     this._changeDetectorRef.markForCheck();
+    this._exitAnimationTimeout = setTimeout(() => {
+      this._exitAnimationTimeout = null;
+      if (this._isAnimating) {
+        this._isAnimating = false;
+        this._animationDone.next();
+      }
+    }, 150);
   }
 
-  _handleAnimationEvent(event: AnimationEvent) {
-    this._isAnimating = event.phaseName === 'start';
-
-    if (!this._isAnimating) {
-      this._animationDone.next();
+  _handleAnimationEvent(event: Event) {
+    if ((event as any).target !== this._elementRef.nativeElement) {
+      return;
     }
+    if (this._enterAnimationTimeout !== null) {
+      clearTimeout(this._enterAnimationTimeout);
+      this._enterAnimationTimeout = null;
+    }
+    if (this._exitAnimationTimeout !== null) {
+      clearTimeout(this._exitAnimationTimeout);
+      this._exitAnimationTimeout = null;
+    }
+    this._isAnimating = false;
+    this._animationDone.next();
   }
 
   _getSelected() {

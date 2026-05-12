@@ -10,8 +10,8 @@
   },
   "homepage": "https://github.com/h2qutc/angular-material-components",
   "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0",
+    "@angular/common": "^21.1.2",
+    "@angular/core": "^21.1.2",
     "moment": "^2.18.1"
   }
 }
