@@ -225,7 +225,7 @@ abstract class _NgxMatDateRangeInputBase<D> extends NgxMatDateRangeInputPartBase
   host: {
     'class': 'mat-start-date mat-date-range-input-inner',
     '[disabled]': 'disabled',
-    '(input)': '_onInput($event.target.value)',
+    '(input)': '_onInput($any($event.target).value)',
     '(change)': '_onChange()',
     '(keydown)': '_onKeydown($event)',
     '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',
@@ -352,7 +352,7 @@ export class NgxMatStartDate<D> extends _NgxMatDateRangeInputBase<D> {
   host: {
     'class': 'mat-end-date mat-date-range-input-inner',
     '[disabled]': 'disabled',
-    '(input)': '_onInput($event.target.value)',
+    '(input)': '_onInput($any($event.target).value)',
     '(change)': '_onChange()',
     '(keydown)': '_onKeydown($event)',
     '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',

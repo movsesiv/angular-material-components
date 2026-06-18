@@ -1,6 +1,6 @@
 {
   "name": "@movsesiv/moment-adapter",
-  "version": "21.0.0",
+  "version": "22.0.0",
   "description": "Angular Material Moment Adapter",
   "author": "HO Hong Quan",
   "license": "MIT",
@@ -10,8 +10,8 @@
   },
   "homepage": "https://github.com/h2qutc/angular-material-components",
   "peerDependencies": {
-    "@angular/common": "^21.1.2",
-    "@angular/core": "^21.1.2",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
     "moment": "^2.18.1"
   }
 }
