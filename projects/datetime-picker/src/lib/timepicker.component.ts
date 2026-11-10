@@ -108,12 +108,15 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
    * Writes a new value to the element.
    * @param obj
    */
-  writeValue(val: D): void {
+  writeValue(val: D | null): void {
     if (val != null) {
       this._model = val;
       this._updateHourMinuteSecond();
+    } else {
+      this._model = null as any;
+      this.form.reset({ hour: null, minute: null, second: null }, { emitEvent: false });
+      this.cd.markForCheck();
     }
-
   }
 
   /** Registers a callback function that is called when the control's value changes in the UI. */
@@ -131,6 +134,8 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
   /** Enables or disables the appropriate DOM element */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled;
+    this.disabled = isDisabled;
+    this._setDisableStates();
     this.cd.markForCheck();
   }
 
@@ -153,6 +158,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
     const next = this._getNextValueByProp(prop, up);
     this.form.controls[prop].setValue(formatTwoDigitTimeValue(next), { onlySelf: false, emitEvent: false });
     this._updateModel();
+    this._onTouched();
   }
 
   /** Update controls of form by model */
@@ -249,14 +255,14 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
    */
   private _setDisableStates() {
     if (this.disabled) {
-      this.form.disable();
+      this.form.disable({ emitEvent: false });
     }
     else {
-      this.form.enable();
+      this.form.enable({ emitEvent: false });
       if (this.disableMinute) {
-        this.form.get('minute').disable();
+        this.form.get('minute').disable({ emitEvent: false });
         if (this.showSeconds) {
-          this.form.get('second').disable();
+          this.form.get('second').disable({ emitEvent: false });
         }
       }
     }
